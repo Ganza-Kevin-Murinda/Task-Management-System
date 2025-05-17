@@ -2,9 +2,9 @@ package com.tsm.task.dao.impl;
 
 import com.tsm.task.dao.DBUtil;
 import com.tsm.task.dao.interfaces.TaskDAO;
-import com.tsm.task.model.Task;
 import com.tsm.task.model.EPriority;
 import com.tsm.task.model.EStatus;
+import com.tsm.task.model.Task;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -127,6 +127,45 @@ public class TaskDAOImpl implements TaskDAO {
                 return rows > 0;
             }
         }
+    }
+
+    @Override
+    public List<Task> findTasksByStatus(EStatus status, String sortBy) throws SQLException {
+        String sql = "SELECT * FROM task WHERE status=? ORDER BY " + sortBy;
+        return getFilteredTasks(sql, status.name());
+    }
+
+    @Override
+    public List<Task> findTasksByPriority(EPriority priority, String sortBy) throws SQLException {
+        String sql = "SELECT * FROM task WHERE priority=? ORDER BY " + sortBy;
+        return getFilteredTasks(sql, priority.name());
+    }
+
+    @Override
+    public List<Task> findTasksByCategory(int categoryId, String sortBy) throws SQLException {
+        String sql = "SELECT * FROM task WHERE category_id=? ORDER BY " + sortBy;
+        return getFilteredTasks(sql, categoryId);
+    }
+
+    @Override
+    public List<Task> findTasksByUser(int userId, String sortBy) throws SQLException {
+        String sql = "SELECT * FROM task WHERE user_id=? ORDER BY " + sortBy;
+        return getFilteredTasks(sql, userId);
+    }
+
+    private List<Task> getFilteredTasks(String sql, Object param) throws SQLException {
+        List<Task> list = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection()) {
+            assert conn != null;
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setObject(1, param);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    list.add(mapRowToTask(rs));
+                }
+            }
+        }
+        return list;
     }
 
     private Task mapRowToTask(ResultSet rs) throws SQLException {
