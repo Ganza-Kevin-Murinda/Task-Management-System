@@ -3,11 +3,7 @@
     <Properties>
         <!-- ANSI Colors for Log Levels -->
         <Property name="LOG_PATTERN">
-            %style{[%d{yyyy-MM-dd HH:mm:ss}]}{black}
-            %highlight{[%-5level]}
-            %style{[%t]}{blue}
-            %style{[%c{1}]}{cyan}
-            - %msg%n%throwable
+            %style{[%d{yyyy-MM-dd HH:mm:ss}]}{white} %highlight{[%-5level]} %style{[%t]}{blue} %style{[%c{1}]}{cyan} - %msg%n%throwable
         </Property>
     </Properties>
 
