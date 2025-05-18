@@ -8,7 +8,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DBUtil {
-    private static final Dotenv dotenv = Dotenv.load();
+    static {
+        try {
+            Class.forName("org.postgresql.Driver"); // Required on some servlet containers
+        } catch (ClassNotFoundException e) {
+            System.err.println("PostgreSQL JDBC Driver not found.");
+            e.printStackTrace();
+        }
+    }
+
+    private static final Dotenv dotenv = Dotenv.configure().filename(".env").load();
+
     private static final Logger logger = LogManager.getLogger(DBUtil.class);
     private static final String URL = dotenv.get("DB_URL");
     private static final String USER = dotenv.get("DB_USER");
@@ -16,11 +26,10 @@ public class DBUtil {
 
     public static Connection getConnection() throws SQLException {
         try {
-            logger.debug("Opening DB connection");
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             logger.error("Failed to connect to database", e);
-            return null;
+            throw e;
         }
     }
 
@@ -35,4 +44,3 @@ public class DBUtil {
         }
     }
 }
-
