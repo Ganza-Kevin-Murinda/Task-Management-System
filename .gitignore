@@ -41,4 +41,4 @@ build/
 logs/
 
 ## ENV FILE ##
-.env
+src/main/resources/.env
