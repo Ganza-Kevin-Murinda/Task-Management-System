@@ -6,9 +6,9 @@ import com.tsm.task.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     private static final Logger logger = LogManager.getLogger(UserDAOImpl.class);
@@ -34,5 +34,33 @@ public class UserDAOImpl implements UserDAO {
             logger.error("Error creating user", e);
             throw e;
         }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = DBUtil.getConnection()) {
+            assert conn != null;
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+                while (rs.next()) {
+                    User user = new User();
+                    user.setUserId(rs.getInt("id"));
+                    user.setUsername(rs.getString("username"));
+                    user.setFull_name(rs.getString("full_name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setDepartment(rs.getString("department"));
+                    user.setJoinDate(rs.getDate("join_date").toLocalDate());
+                    users.add(user);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error creating category", e);
+        }
+
+        return users;
     }
 }
