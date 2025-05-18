@@ -52,7 +52,7 @@ This project adheres to solid Java web development principles and leverages the 
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure & Configuration
 ```
 src/
     │
@@ -63,6 +63,12 @@ src/
     ├── views/ # JSP pages for the user interface
     └── utils/ # Helper classes and utilities
 ```
+
+### 🛠️ Environment Configuration
+This project uses **environment variables** for secure and flexible database configuration.
+- Environment variables are stored in a `.env` file (not committed to version control).
+- Managed to use the [`dotenv-java`](https://github.com/cdimascio/dotenv-java) library.
+
 ---
 ## 🎥 **Video Demonstration**  
 ```
@@ -78,5 +84,18 @@ Link
     ```
     https://github.com/Ganza-Kevin-Murinda/Task-Management-System.git
     ```
+2. Create an `.env` file to store the DB credentials in Java
+    - Example environment variables:
+    ```
+    DB_URL=jdbc:postgresql://localhost:5432/your_database
+    DB_USER=your_username
+    DB_PASSWORD=your_password
+    ```
+    
+    ```
+    Dotenv dotenv = Dotenv.load();
+    String url = dotenv.get("DB_URL");
+    ```
+
 ---
 🔗 **Happy Coding!** 💻🚀  
