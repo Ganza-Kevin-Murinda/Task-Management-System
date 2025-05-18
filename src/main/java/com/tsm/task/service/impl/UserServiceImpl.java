@@ -6,6 +6,8 @@ import com.tsm.task.service.interfaces.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
@@ -50,5 +52,10 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
     }
 }
