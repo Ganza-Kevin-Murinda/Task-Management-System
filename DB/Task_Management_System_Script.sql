@@ -4,7 +4,7 @@ CREATE TABLE "user"(
     "full_name" VARCHAR(255) NOT NULL,
     "email" VARCHAR(255) NOT NULL,
     "department" VARCHAR(255) NOT NULL,
-    "join_date" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
+    "join_date" DATE NOT NULL
 );
 ALTER TABLE
     "user" ADD PRIMARY KEY("id");
@@ -30,7 +30,7 @@ CREATE TABLE "task"(
     "status" VARCHAR(255) NOT NULL DEFAULT 'PENDING',
     "priority" VARCHAR(255) NOT NULL DEFAULT 'MEDIUM',
     "creation_date" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "last_updated_date" TIMESTAMP(0) WITHOUT TIME ZONE NULL DEFAULT CURRENT_TIMESTAMP,
+    "last_updated_date" TIMESTAMP(0) WITHOUT TIME ZONE NULL,
     "user_id" SERIAL NOT NULL,
     "category_id" SERIAL NOT NULL
 );
