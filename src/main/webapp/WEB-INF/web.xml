@@ -3,4 +3,47 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+<display-name>Automated Text Processing App</display-name>
+
+<!-- Task Servlet -->
+<servlet>
+    <servlet-name>TaskServlet</servlet-name>
+    <servlet-class>com.tsm.task.controller.TaskServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>TaskServlet</servlet-name>
+    <url-pattern>/tasks/*</url-pattern>
+</servlet-mapping>
+
+<!-- User Servlet -->
+<servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.tsm.task.controller.UserServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/users/*</url-pattern>
+</servlet-mapping>
+
+<!-- Category Servlet -->
+<servlet>
+    <servlet-name>CategoryServlet</servlet-name>
+    <servlet-class>com.tsm.task.controller.CategoryServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>CategoryServlet</servlet-name>
+    <url-pattern>/categories/*</url-pattern>
+</servlet-mapping>
+
+    <servlet>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <servlet-class>com.tsm.task.controller.WelcomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
